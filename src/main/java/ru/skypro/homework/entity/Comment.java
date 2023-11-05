@@ -21,26 +21,16 @@ public class Comment {
     @NonNull
     private Long createdAt;
 
-    @Getter
     @ManyToOne
     @JoinColumn(name = "author")
     private User author;
 
-    @Getter
     @ManyToOne
     @JoinColumn(name = "ad")
     private Ad ad;
 
     public Comment() {
 
-    }
-
-    public void setAuthor(final User author) {
-        this.author = author;
-    }
-
-    public void setAd(final Ad ad) {
-        this.ad = ad;
     }
 
     @Override

@@ -5,6 +5,7 @@ import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
+import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.entity.Ad;
 import ru.skypro.homework.exception.UserNotFoundException;
@@ -27,10 +28,10 @@ private final UserRepository userRepository;
         adDto.setDescription(ad.getDescription());
         adDto.setPrice(ad.getPrice());
         adDto.setImage(ad.getImage());
-        adDto.setImage(ad.getAuthor().getEmail());
-        adDto.setImage(ad.getAuthor().getPhone());
         adDto.setAuthorFirstName(ad.getAuthor().getFirstName());
         adDto.setAuthorLastName(ad.getAuthor().getLastName());
+        adDto.setEmail(ad.getAuthor().getEmail());
+        adDto.setPhone(ad.getAuthor().getPhone());
 
         return adDto;
     }

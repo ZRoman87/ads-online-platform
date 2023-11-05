@@ -13,9 +13,9 @@ Content-Disposition: form-data; name="properties"
 Content-Type: application/json
 
 {
-  "price": 3000,
-  "title": "New title",
-  "description": "New content"
+  "price": 5000,
+  "title": "New title2",
+  "description": "New content2"
 }
 
 --WebAppBoundary
@@ -25,7 +25,7 @@ Content-Type: image/jpeg
 < mto.jpg
 
 ### Get ad by id
-GET http://localhost:8080/ads/1
+GET http://localhost:8080/ads/2
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
@@ -35,13 +35,13 @@ Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 ### Update ad by id
-PATCH http://localhost:8080/ads/1
+PATCH http://localhost:8080/ads/20
 Content-Type: application/json
 
 {
   "price": 3000,
-  "title": "New title",
-  "description": "New content"
+  "title": "New title updated",
+  "description": "New content updated"
 }
 
 ### Get all ads by autorized user
@@ -66,12 +66,12 @@ Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 ### Add comment to ad
-POST http://localhost:8080/ads/1/comments
+POST http://localhost:8080/ads/2/comments
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 {
-  "text": "Comment text"
+  "text": "Comment text 2"
 }
 
 ### Update comment for ad
@@ -97,11 +97,11 @@ POST http://localhost:8080/register
 Content-Type: application/json
 
 {
-  "username": "carolunas@yandex.ru",
-  "password": "carolunas",
-  "firstName": "Dennis",
-  "lastName": "Carolunas",
-  "phone": "+7 (913) 213-55-50",
+  "username": "user@gmail.com",
+  "password": "password",
+  "firstName": "User",
+  "lastName": "Dummy",
+  "phone": "+7 (913) 213-55-55",
   "role": "ADMIN"
 }
 
