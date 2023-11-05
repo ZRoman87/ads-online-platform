@@ -27,9 +27,9 @@ public class Ad {
     private String description;
     private String image;
 
-    public void setAuthor(final User author) {
+/*    public void setAuthor(final User author) {
         this.author = author;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

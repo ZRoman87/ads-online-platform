@@ -1,5 +1,6 @@
 package ru.skypro.homework.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -9,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
-import ru.skypro.homework.dto.CreateAdDto;
+import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
+import ru.skypro.homework.service.AdService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,38 +22,54 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/ads")
 @CrossOrigin(value = "http://localhost:3000")
+@AllArgsConstructor
 public class AdController {
 
+private final AdService service;
+
     @GetMapping
-    public AdsDto getAllAds() {
-        return new AdsDto();
+    public ResponseEntity<AdsDto> getAllAds() {
+        return ResponseEntity.ok(service.getAll());
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AdDto addAd(@RequestPart(name = "properties") CreateAdDto ad,
+    public ResponseEntity<AdDto> addAd(@RequestPart(name = "properties") AdDto ad,
                        @RequestPart(name = "image") MultipartFile file) {
-        return new AdDto();
+        AdDto addedAd = service.create(ad);
+        return ResponseEntity.ok(addedAd);
     }
 
     @GetMapping(path = "/{id}")
-    public ExtendedAdDto getAdById(@PathVariable(value = "id") Integer id) {
-        return new ExtendedAdDto();
+    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable(value = "id") Integer id) {
+        ExtendedAdDto Ad = service.get(id);
+        if (Ad == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(Ad);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteAdById(@PathVariable(value = "id") Integer id) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        try {
+            service.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PatchMapping(path = "/{id}")
-    public AdDto updateAdById(@PathVariable(value = "id") Integer id,
-                              @RequestBody CreateAdDto ad) {
-        return new AdDto();
+    public ResponseEntity<AdDto> updateAdById(@PathVariable(value = "id") Integer id,
+                              @RequestBody CreateOrUpdateAdDto ad) {
+        AdDto updatedAd = service.update(id, ad);
+        return ResponseEntity.ok(updatedAd);
+
     }
 
     @GetMapping(path = "/me")
-    public List<AdDto> getAuthorizedUserAds() {
-        return List.of(new AdDto[]{});
+    public ResponseEntity<AdsDto>  getAuthorizedUserAds() {
+        Integer id = 1; //need to fix on next week - how to hand over Authorized User Id?
+        return ResponseEntity.ok(service.getAuthorizedUserAds(id));
     }
 
     @PatchMapping(
