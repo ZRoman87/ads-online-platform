@@ -3,7 +3,6 @@ package ru.skypro.homework.service;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
 import ru.skypro.homework.dto.CreateOrUpdateCommentDto;
-import ru.skypro.homework.entity.Comment;
 
 public interface CommentService {
     CommentsDto getComments(Integer adId);
