@@ -17,7 +17,6 @@ import ru.skypro.homework.service.AdService;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/ads")
@@ -25,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AdController {
 
-private final AdService service;
+    private final AdService service;
 
     @GetMapping
     public ResponseEntity<AdsDto> getAllAds() {
@@ -34,18 +33,18 @@ private final AdService service;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AdDto> addAd(@RequestPart(name = "properties") AdDto ad,
-                       @RequestPart(name = "image") MultipartFile file) {
+                                       @RequestPart(name = "image") MultipartFile file) {
         AdDto addedAd = service.create(ad);
         return ResponseEntity.ok(addedAd);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable(value = "id") Integer id) {
-        ExtendedAdDto Ad = service.get(id);
-        if (Ad == null) {
-            return ResponseEntity.notFound().build();
+        ExtendedAdDto ad = service.get(id);
+        if (ad == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity.ok(Ad);
+        return ResponseEntity.ok(ad);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -60,14 +59,13 @@ private final AdService service;
 
     @PatchMapping(path = "/{id}")
     public ResponseEntity<AdDto> updateAdById(@PathVariable(value = "id") Integer id,
-                              @RequestBody CreateOrUpdateAdDto ad) {
+                                              @RequestBody CreateOrUpdateAdDto ad) {
         AdDto updatedAd = service.update(id, ad);
         return ResponseEntity.ok(updatedAd);
-
     }
 
     @GetMapping(path = "/me")
-    public ResponseEntity<AdsDto>  getAuthorizedUserAds() {
+    public ResponseEntity<AdsDto> getAuthorizedUserAds() {
         Integer id = 1; //need to fix on next week - how to hand over Authorized User Id?
         return ResponseEntity.ok(service.getAuthorizedUserAds(id));
     }

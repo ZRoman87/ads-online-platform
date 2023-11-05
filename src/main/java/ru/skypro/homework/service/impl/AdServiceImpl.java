@@ -10,6 +10,7 @@ import ru.skypro.homework.exception.AdNotFoundException;
 import ru.skypro.homework.mapper.AdMapper;
 import ru.skypro.homework.repository.AdRepository;
 import ru.skypro.homework.service.AdService;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +24,10 @@ public class AdServiceImpl implements AdService {
 
         //--------------------------------
         // Need to fix on next week - Author should be set automatically
-        AdDto adDto  = new AdDto();
+        AdDto adDto = new AdDto();
         adDto = ad;
         ad.setAuthor(1);
+
         //--------------------------------
         return mapper.toDto(
                 repository.save(
@@ -39,10 +41,11 @@ public class AdServiceImpl implements AdService {
         return repository
                 .findById(id)
                 .map(mapper::toExtendedDto)
-                .orElseThrow(() -> new AdNotFoundException());
+                .orElseThrow(AdNotFoundException::new);
     }
+
     @Override
-    public AdsDto getAll(){
+    public AdsDto getAll() {
         return mapper.toAdsDto(
                 repository
                         .findAll()
@@ -53,6 +56,7 @@ public class AdServiceImpl implements AdService {
                         .map(mapper::toDto)
                         .collect(Collectors.toList()));
     }
+
     @Override
     public AdsDto getAuthorizedUserAds(Integer id) {
         return mapper.toAdsDto(
@@ -67,7 +71,7 @@ public class AdServiceImpl implements AdService {
     }
 
     public AdDto update(Integer id, CreateOrUpdateAdDto ad) {
-        
+
         return repository
                 .findById(id)
                 .map(oldAd -> {
@@ -84,9 +88,5 @@ public class AdServiceImpl implements AdService {
         repository.findById(id).orElseThrow(AdNotFoundException::new);
         repository.deleteById(id);
     }
-
-
-
-
 
 }

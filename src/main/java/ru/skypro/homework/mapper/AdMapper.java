@@ -27,10 +27,10 @@ private final UserRepository userRepository;
         adDto.setDescription(ad.getDescription());
         adDto.setPrice(ad.getPrice());
         adDto.setImage(ad.getImage());
-        adDto.setImage(ad.getAuthor().getEmail());
-        adDto.setImage(ad.getAuthor().getPhone());
         adDto.setAuthorFirstName(ad.getAuthor().getFirstName());
         adDto.setAuthorLastName(ad.getAuthor().getLastName());
+        adDto.setEmail(ad.getAuthor().getEmail());
+        adDto.setPhone(ad.getAuthor().getPhone());
 
         return adDto;
     }
