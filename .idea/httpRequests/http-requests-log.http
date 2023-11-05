@@ -1,859 +1,643 @@
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 230
+PATCH http://localhost:8080/users/me/image
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Content-Length: 132928
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=959F46EE0BC70B4A62BDC5C86F6C81B0
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="mto.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\1\IdeaProjects\team5-graduate-work\mto.jpg
+--WebAppBoundary--
+
+###
+
+PATCH http://localhost:8080/users/me/image
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Content-Length: 132928
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=959F46EE0BC70B4A62BDC5C86F6C81B0
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="mto.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\1\IdeaProjects\team5-graduate-work\mto.jpg
+--WebAppBoundary--
+
+###
+
+PATCH http://localhost:8080/users/me/image
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Content-Length: 132928
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=307C10EEF0598FD129B27A7DE7A44398
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="mto.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\1\IdeaProjects\team5-graduate-work\mto.jpg
+--WebAppBoundary--
+
+###
+
+PATCH http://localhost:8080/users/me/image
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Content-Length: 132928
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=307C10EEF0598FD129B27A7DE7A44398
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="mto.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\1\IdeaProjects\team5-graduate-work\mto.jpg
+--WebAppBoundary--
+
+<> 2023-11-05T230636.401.json
+
+###
+
+PATCH http://localhost:8080/users/me/image
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Content-Length: 132929
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=6E65199961965516C8204ACA87DC2D92
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image2"; filename="mto.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\1\IdeaProjects\team5-graduate-work\mto.jpg
+--WebAppBoundary--
+
+<> 2023-11-05T230623.401.json
+
+###
+
+PATCH http://localhost:8080/users/me/image
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Content-Length: 132928
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=6E65199961965516C8204ACA87DC2D92
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="mto.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\1\IdeaProjects\team5-graduate-work\mto.jpg
+--WebAppBoundary--
+
+###
+
+PATCH http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 87
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=6E65199961965516C8204ACA87DC2D92
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "ViacheslavViacheslavViacheslavViacheslavViacheslavViacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
+  "phone": "+7 (913) 213-55-51",
+  "firstName": "Dennis",
+  "lastName": "Carolunas"
+}
+
+<> 2023-11-05T225328.200.json
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0F08B61B04FCD9C46212AB8700CAC600
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-05T225301.200.json
+
+###
+
+PATCH http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 80
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0F08B61B04FCD9C46212AB8700CAC600
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "phone": "+7 (913) 213-55-51",
+  "firstName": "Ben",
+  "lastName": "Caron"
+}
+
+<> 2023-11-05T201944.200.json
+
+###
+
+PATCH http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 75
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0F08B61B04FCD9C46212AB8700CAC600
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "phone": "33333",
+  "lastName": "Ivanoveee",
+  "firstName": "Ivanfff"
+}
+
+<> 2023-11-05T201847.200.json
+
+###
+
+PATCH http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas2
+Content-Type: application/json
+Content-Length: 69
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0F08B61B04FCD9C46212AB8700CAC600
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "phone": "33333",
+  "lastName": "Ivanov",
+  "firstName": "Ivan"
+}
+
+<> 2023-11-05T201757.200.json
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=334ED2F854E98431E441B5580D0369C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-05T201736.200.json
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=334ED2F854E98431E441B5580D0369C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "password",
+  "currentPassword": "carolunas"
+}
+
+<> 2023-11-05T195458.403.txt
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=334ED2F854E98431E441B5580D0369C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "password",
+  "currentPassword": "carolunas"
+}
+
+<> 2023-11-05T195449.200.txt
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=5B626649757D42634D0B9C29482343F7
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "carolunas",
+  "currentPassword": "password"
+}
+
+<> 2023-11-05T195430.403.txt
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=5B626649757D42634D0B9C29482343F7
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "carolunas",
+  "currentPassword": "password"
 }
 
 ###
 
-POST http://localhost:8080/register
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 180
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=5B626649757D42634D0B9C29482343F7
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
+  "newPassword": "carolunas",
+  "currentPassword": "password"
 }
 
-<> 2023-10-30T205724.500.json
+<> 2023-11-05T195010.200.txt
 
 ###
 
-POST http://localhost:8080/register
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 180
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=5B626649757D42634D0B9C29482343F7
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
+  "newPassword": "password",
+  "currentPassword": "carolunas"
 }
 
 ###
 
-POST http://localhost:8080/register
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 178
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=5B626649757D42634D0B9C29482343F7
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "username": "slavamarchkov@mail.ru",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T212046.200.txt
+<> 2023-11-05T194905.200.json
 
 ###
 
-POST http://localhost:8080/login
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 74
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=1D3BEEC3D4EE16E8D2AFF321833EA4D7
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "slavamarchkov@yandex.ru",
-  "password": "slavamarchkov"
+  "newPassword": "password",
+  "currentPassword": "carolunas"
 }
+
+<> 2023-11-05T194838.200.txt
 
 ###
 
-POST http://localhost:8080/register
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 180
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=1D3BEEC3D4EE16E8D2AFF321833EA4D7
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "slavamarchkov@yandex.ru",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
+  "newPassword": "password",
+  "currentPassword": "carolunas"
 }
 
-<> 2023-10-29T211616.200.txt
+<> 2023-11-05T194533.200.txt
 
 ###
 
-POST http://localhost:8080/register
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 180
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=FF35D8B371E4D82683B8BA135A6E91D8
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T211459.401.json
+<> 2023-11-05T194521.200.json
 
 ###
 
-POST http://localhost:8080/register
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 180
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=FF35D8B371E4D82683B8BA135A6E91D8
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "slavamarchkov@yandex.ru",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
+  "newPassword": "password",
+  "currentPassword": "carolunas"
 }
 
-<> 2023-10-29T211433.401.json
+<> 2023-11-05T194339.200.txt
 
 ###
 
-POST http://localhost:8080/login
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 60
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=197C5A4B4FB47A887C6FA0FAD7BE8E11
+Cookie: JSESSIONID=FF35D8B371E4D82683B8BA135A6E91D8
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "user@gmail.com",
-  "password": "password"
+  "newPassword": "password",
+  "currentPassword": "carolunas"
 }
+
+<> 2023-11-05T194315.200.txt
 
 ###
 
-POST http://localhost:8080/register
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 180
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=0C842BA0DE27B8D9B0336E6773E72635
+Cookie: JSESSIONID=DFE1DE7FB9099B555B63A13B846AFFBB
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "username": "slavamarchkov@yandex.ru",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T211358.401.json
+<> 2023-11-05T194258.200.json
 
 ###
 
-POST http://localhost:8080/register
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 180
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
+Cookie: JSESSIONID=DFE1DE7FB9099B555B63A13B846AFFBB
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "username": "slavamarchkov@yandex.ru",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T211200.401.json
+<> 2023-11-05T193352.200.json
 
 ###
 
-POST http://localhost:8080/register
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 180
+Content-Length: 66
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
+Cookie: JSESSIONID=DFE1DE7FB9099B555B63A13B846AFFBB
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T210711.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T210417.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T210001.200.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T195335.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 162
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59"
-}
-
-<> 2023-10-29T195231.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 181
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "ADMIN"
-}
-
-<> 2023-10-29T195143.200.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 171
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "123@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "ADMIN"
-}
-
-<> 2023-10-29T194952.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 181
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "ADMIN"
-}
-
-<> 2023-10-29T194818.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 181
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "ADMIN"
-}
-
-<> 2023-10-29T194408.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 182
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "'USER'"
-}
-
-<> 2023-10-29T194348.400.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "user"
-}
-
-<> 2023-10-29T194258.400.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 162
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59"
-}
-
-<> 2023-10-29T194208.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T194106.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 162
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59"
-}
-
-<> 2023-10-29T193032.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 162
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59"
-}
-
-<> 2023-10-29T192301.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T192116.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T191047.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 162
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59"
-}
-
-<> 2023-10-29T191015.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T174844.200.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T174806.200.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T174540.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T173632.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T173452.500.json
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 180
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T173406.400.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 179
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viachelav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T173218.400.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 178
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viachelav",
-  "lastName": "Marchkov",
-  "phone": "+7(913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T173115.400.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 179
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viachelav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
-}
-
-<> 2023-10-29T173055.400.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 173
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viachelav",
-  "lastName": "Marchkov",
-  "phone": "+79132135559",
-  "role": "USER"
-}
-
-<> 2023-10-29T173007.400.txt
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 174
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=D763E48C2BD0390C7B7E96D53CD6AA42
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+79132135559",
-  "role": "USER"
+  "newPassword": "password",
+  "currentPassword": "carolunas1"
 }
 
 ###
 
-GET http://localhost:8080/ads
-Authorization: Basic user@gmail.com password
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=66A17542894B74194AF4D3D24916A8C6
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-10-29T165959.200.json
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-Content-Length: 60
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=66A17542894B74194AF4D3D24916A8C6
+Cookie: JSESSIONID=EF5660C516370DB9035BDDEC0CB3F8D7
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "user@gmail.com",
-  "password": "password"
+  "newPassword": "password",
+  "currentPassword": "carolunas"
+}
+
+<> 2023-11-05T193250.200.txt
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=EF5660C516370DB9035BDDEC0CB3F8D7
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "password",
+  "currentPassword": "carolunas"
+}
+
+<> 2023-11-05T192854.200.txt
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=D984975BAE40BDB9DD444A21A2D9749D
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "password",
+  "currentPassword": "password1"
 }
 
 ###
 
-POST http://localhost:8080/login
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
 Content-Type: application/json
-Content-Length: 60
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=695D0D0D329B39791FF5374B9FF6A216
+Cookie: JSESSIONID=6404C30884B564FE4FC7D8EA1631240A
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "username": "user@gmail.com",
-  "password": "password"
+  "newPassword": "password",
+  "currentPassword": "password1"
 }
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=6404C30884B564FE4FC7D8EA1631240A
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "password",
+  "currentPassword": "password1"
+}
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=6404C30884B564FE4FC7D8EA1631240A
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "password",
+  "currentPassword": "password1"
+}
+
+###
+
+POST http://localhost:8080/users/set_password
+Authorization: Basic carolunas@yandex.ru carolunas1
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=6404C30884B564FE4FC7D8EA1631240A
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "newPassword": "password",
+  "currentPassword": "password1"
+}
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=8B3D1B9F05FBB3752AA734871E080F72
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-05T190827.200.json
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=E8A6E6AAB96949AEC2D0D20307EB00A0
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-05T190615.200.json
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=943B3E81CE30B3617E2A5C61CF7CD6AC
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-05T190309.200.json
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=60B95DD36C1978EC8A53E16F9A93735B
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-05T190049.200.json
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=5EB3EE3D8ECBE4E7974BCABBC3D442E2
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=E91CFE83B81877B4BF3372E2CEE6B11D
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic carolunas@yandex.ru carolunas
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=FA92389986283DC131A42A9237899904
+Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
@@ -862,85 +646,10 @@ Authorization: Basic user@gmail.com password
 Content-Type: application/json
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=E7678F931E121BF6E1EC245AD3DD44EE
+Cookie: JSESSIONID=FA92389986283DC131A42A9237899904
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-###
-
-GET http://localhost:8080/ads
-Authorization: Basic user@gmail.com 03d75b00-bdca-4fd3-90e6-b97cf2bcf98e
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=E7678F931E121BF6E1EC245AD3DD44EE
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-GET http://localhost:8080/ads
-Authorization: Basic user@gmail.com password
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=E7678F931E121BF6E1EC245AD3DD44EE
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 184
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=6B4CD78CC0C4A815742DFBBB59228F74
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov@gmail.com",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+79132135559",
-  "role": "USER"
-}
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 197
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=6B4CD78CC0C4A815742DFBBB59228F74
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "d4df73f3-61bb-44ca-a98b-79fa726d2487",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+79132135559",
-  "role": "USER"
-}
-
-###
-
-POST http://localhost:8080/register
-Content-Type: application/json
-Content-Length: 184
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=6B4CD78CC0C4A815742DFBBB59228F74
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov@gmail.com",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+79132135559",
-  "role": "USER"
-}
+<> 2023-11-05T185201.401.json
 
 ###
 
@@ -949,8 +658,90 @@ Authorization: Basic user@gmail.com password
 Content-Type: application/json
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Cookie: JSESSIONID=EFF280AB6C0B8E12AE21D810FF668E82
+Cookie: JSESSIONID=371830369CAD483419376D71E864B7EF
 Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic user@gmail.com password
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=408567639539FB4104C9D9C16AD75A8F
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-05T184552.500.json
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic user@gmail.com password
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=E57E0FC3D8C420B9C436861BD3B8D172
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic user@gmail.com password
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=7CF1F62ECEE0409111BBBEE8A12EFCB8
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic user@gmail.com password
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=67B6E25ED139412EC61249C50C6F7AAB
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/users/me
+Authorization: Basic user@gmail.com password
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=476F7680C3DF815EBE7F87EBFF990917
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+Content-Length: 60
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=476F7680C3DF815EBE7F87EBFF990917
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "user@gmail.com",
+  "password": "password"
+}
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+Content-Length: 66
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=476F7680C3DF815EBE7F87EBFF990917
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "carolunas@yandex.ru",
+  "password": "carolunas"
+}
 
 ###
 
