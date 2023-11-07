@@ -1,1 +1,5 @@
-Материалы для выполнения курсовой работы учениками профессии java-разработчик. 
+*** 
+Advertisement web-platform "ADS-online" 
+***
+
+This project contains backend part of the web-platform for posting advertisements.
