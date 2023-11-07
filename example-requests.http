@@ -13,9 +13,9 @@ Content-Disposition: form-data; name="properties"
 Content-Type: application/json
 
 {
-  "price": 3000,
-  "title": "New title",
-  "description": "New content"
+  "price": 5000,
+  "title": "New title2",
+  "description": "New content2"
 }
 
 --WebAppBoundary
@@ -25,7 +25,7 @@ Content-Type: image/jpeg
 < mto.jpg
 
 ### Get ad by id
-GET http://localhost:8080/ads/1
+GET http://localhost:8080/ads/2
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
@@ -35,13 +35,13 @@ Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 ### Update ad by id
-PATCH http://localhost:8080/ads/1
+PATCH http://localhost:8080/ads/20
 Content-Type: application/json
 
 {
   "price": 3000,
-  "title": "New title",
-  "description": "New content"
+  "title": "New title updated",
+  "description": "New content updated"
 }
 
 ### Get all ads by autorized user
@@ -66,12 +66,12 @@ Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 ### Add comment to ad
-POST http://localhost:8080/ads/1/comments
+POST http://localhost:8080/ads/2/comments
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 {
-  "text": "Comment text"
+  "text": "Comment text 2"
 }
 
 ### Update comment for ad
@@ -88,8 +88,8 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "username": "slavamarchkov@yandex.ru",
-  "password": "slavamarchkov"
+  "username": "user@gmail.com",
+  "password": "password"
 }
 
 ### Register
@@ -97,36 +97,47 @@ POST http://localhost:8080/register
 Content-Type: application/json
 
 {
-  "username": "slavamarchkov@gmail.com",
-  "password": "slavamarchkov",
-  "firstName": "Viacheslav",
-  "lastName": "Marchkov",
-  "phone": "+7 (913) 213-55-59",
-  "role": "USER"
+  "username": "user@gmail.com",
+  "password": "password",
+  "firstName": "User",
+  "lastName": "Dummy",
+  "phone": "+7 (913) 213-55-55",
+  "role": "ADMIN"
 }
 
-###
+### Get details of an authenticated user
 GET http://localhost:8080/users/me
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
-###
+### Update details of an authenticated user
 PATCH http://localhost:8080/users/me
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 {
-  "phone": "33333",
-  "lastName": "Ivanov",
-  "firstName": "Ivan"
+  "phone": "+7 (913) 213-55-51",
+  "firstName": "Dennis",
+  "lastName": "Carolunas"
 }
 
-###
+### Change password of an authenticated user
 POST http://localhost:8080/users/set_password
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 {
   "newPassword": "password",
-  "currentPassword": "password1"
+  "currentPassword": "carolunas"
 }
+
+### Update an avatar for an authenticated user
+PATCH http://localhost:8080/users/me/image
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Basic user@gmail.com password
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="mto.jpg"
+Content-Type: image/jpeg
+
+< mto.jpg

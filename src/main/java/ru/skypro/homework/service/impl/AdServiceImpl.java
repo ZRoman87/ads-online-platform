@@ -1,29 +1,111 @@
 package ru.skypro.homework.service.impl;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import ru.skypro.homework.dto.AdDto;
+import ru.skypro.homework.dto.AdsDto;
+import ru.skypro.homework.dto.CreateOrUpdateAdDto;
+import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.entity.Ad;
+import ru.skypro.homework.entity.Comment;
+import ru.skypro.homework.entity.User;
+import ru.skypro.homework.exception.AdNotFoundException;
+import ru.skypro.homework.mapper.AdMapper;
 import ru.skypro.homework.repository.AdRepository;
+import ru.skypro.homework.repository.CommentRepository;
+import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.AdService;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class AdServiceImpl implements AdService {
     private final AdRepository repository;
+    private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
+    private final AdMapper mapper;
 
-    @Override
-    public void create(Ad ad) {
-        repository.save(ad);
+    private User getCurrentUser() {
+        Authentication authenticationUser = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principalUser = (UserDetails) authenticationUser.getPrincipal();
+        return userRepository.findByEmail(principalUser.getUsername());
     }
 
     @Override
-    public void update(Ad ad) {
-        repository.delete(ad);
-        repository.save(ad);
+    public AdDto create(CreateOrUpdateAdDto ad) {
+        Ad entity = new Ad();
+        entity.setAuthor(getCurrentUser());
+        entity.setPrice(ad.getPrice());
+        entity.setTitle(ad.getTitle());
+        entity.setDescription(ad.getDescription());
+
+        return mapper.toDto(
+                repository.save(entity)
+        );
     }
 
     @Override
-    public void delete(Ad ad) {
-        repository.delete(ad);
+    public ExtendedAdDto get(Integer id) {
+        return repository
+                .findById(id)
+                .map(mapper::toExtendedDto)
+                .orElseThrow(AdNotFoundException::new);
     }
+
+    @Override
+    public AdsDto getAll() {
+        return mapper.toAdsDto(
+                repository
+                        .findAll()
+                        .size(),
+                repository
+                        .findAll()
+                        .stream()
+                        .map(mapper::toDto)
+                        .collect(Collectors.toList()));
+    }
+
+    @Override
+    public AdsDto getAuthorizedUserAds(Integer id) {
+        return mapper.toAdsDto(
+                repository
+                        .findByAuthorId(id)
+                        .size(),
+                repository
+                        .findByAuthorId(id)
+                        .stream()
+                        .map(mapper::toDto)
+                        .collect(Collectors.toList()));
+    }
+
+    public AdDto update(Integer id, CreateOrUpdateAdDto ad) {
+        return repository
+                .findById(id)
+                .map(oldAd -> {
+                    oldAd.setPrice(ad.getPrice());
+                    oldAd.setTitle(ad.getTitle());
+                    oldAd.setDescription(ad.getDescription());
+                    return mapper.toDto(repository.save(oldAd));
+                })
+                .orElseThrow(AdNotFoundException::new);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        repository.findById(id).orElseThrow(AdNotFoundException::new);
+
+        List<Comment> comments = commentRepository.findCommentsByAd_Pk(id);
+        comments.forEach(comment -> {
+            commentRepository.deleteById(comment.getPk());
+        });
+
+        repository.deleteById(id);
+    }
+
 }

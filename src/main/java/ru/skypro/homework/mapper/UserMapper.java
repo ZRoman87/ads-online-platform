@@ -12,11 +12,12 @@ public class UserMapper {
         UserDto userDto = new UserDto();
 
         userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
-        userDto.setEmail(userDto.getEmail());
-        userDto.setPhone(userDto.getPhone());
-        userDto.setRole(userDto.getRole());
+        userDto.setPhone(user.getPhone());
+        userDto.setRole(user.getRole());
+        userDto.setImage(user.getImage());
 
         return userDto;
     }
