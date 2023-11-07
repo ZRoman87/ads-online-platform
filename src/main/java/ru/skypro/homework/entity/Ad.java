@@ -18,14 +18,15 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pk;
-    @Getter
-    @ManyToOne
-    @JoinColumn(name = "author")
-    private User author;
+
     private String title;
     private Integer price;
     private String description;
     private String image;
+
+    @ManyToOne
+    @JoinColumn(name = "author")
+    private User author;
 
     @Override
     public boolean equals(Object o) {

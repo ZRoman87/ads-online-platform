@@ -46,11 +46,11 @@ private final UserRepository userRepository;
 
         return adDto;
     }
-    public AdsDto toAdsDto(Integer count, @NonNull List<AdDto> result) {
+    public AdsDto toAdsDto(Integer count, @NonNull List<AdDto> results) {
         AdsDto adsDto = new AdsDto();
 
         adsDto.setCount(count);
-        adsDto.setResult(result);
+        adsDto.setResults(results);
 
         return adsDto;
     }

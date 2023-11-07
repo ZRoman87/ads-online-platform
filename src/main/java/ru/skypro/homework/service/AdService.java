@@ -6,7 +6,7 @@ import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
 
 public interface AdService {
-    AdDto create(AdDto ad);
+    AdDto create(CreateOrUpdateAdDto ad);
     ExtendedAdDto get(Integer id);
     AdsDto getAll();
     AdsDto getAuthorizedUserAds(Integer id);

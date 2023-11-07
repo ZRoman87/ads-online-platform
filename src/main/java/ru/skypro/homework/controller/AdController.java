@@ -32,7 +32,7 @@ public class AdController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<AdDto> addAd(@RequestPart(name = "properties") AdDto ad,
+    public ResponseEntity<AdDto> addAd(@RequestPart(name = "properties") CreateOrUpdateAdDto ad,
                                        @RequestPart(name = "image") MultipartFile file) {
         AdDto addedAd = service.create(ad);
         return ResponseEntity.ok(addedAd);
@@ -51,9 +51,9 @@ public class AdController {
     public ResponseEntity<Void> deleteAdById(@PathVariable(value = "id") Integer id) {
         try {
             service.delete(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 

@@ -1,7 +1,6 @@
 package ru.skypro.homework.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.NewPasswordDto;
 import ru.skypro.homework.dto.UpdateUserDto;
 import ru.skypro.homework.dto.UserDto;
+import ru.skypro.homework.entity.User;
 import ru.skypro.homework.exception.UserAvatarProcessingException;
 import ru.skypro.homework.mapper.UserMapper;
 import ru.skypro.homework.repository.UserRepository;
@@ -45,12 +45,9 @@ public class UserServiceImpl implements UserService {
     public UserDto getAuthenticatedUser() {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principalUser = (UserDetails) currentUser.getPrincipal();
-
-        if (!(currentUser instanceof AnonymousAuthenticationToken)) {
-            return mapper.toDto(repository.findByEmail(principalUser.getUsername()));
-        }
-
-        return null;
+        return mapper.toDto(
+                repository.findByEmail(principalUser.getUsername())
+        );
     }
 
     @Override
@@ -75,8 +72,9 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean checkCurrentPassword(final String password) {
-        UserDto userDto = this.getAuthenticatedUser();
-        return encoder.matches(password, userDto.getPassword());
+        User user = new User();
+        String currentPassword = user.getPassword();
+        return encoder.matches(password, currentPassword);
     }
 
     @Override

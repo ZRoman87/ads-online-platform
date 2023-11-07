@@ -1,38 +1,52 @@
 package ru.skypro.homework.service.impl;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
+import ru.skypro.homework.entity.Ad;
+import ru.skypro.homework.entity.Comment;
+import ru.skypro.homework.entity.User;
 import ru.skypro.homework.exception.AdNotFoundException;
 import ru.skypro.homework.mapper.AdMapper;
 import ru.skypro.homework.repository.AdRepository;
+import ru.skypro.homework.repository.CommentRepository;
+import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.AdService;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class AdServiceImpl implements AdService {
     private final AdRepository repository;
+    private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
     private final AdMapper mapper;
 
+    private User getCurrentUser() {
+        Authentication authenticationUser = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principalUser = (UserDetails) authenticationUser.getPrincipal();
+        return userRepository.findByEmail(principalUser.getUsername());
+    }
+
     @Override
-    public AdDto create(AdDto ad) {
+    public AdDto create(CreateOrUpdateAdDto ad) {
+        Ad entity = new Ad();
+        entity.setAuthor(getCurrentUser());
+        entity.setPrice(ad.getPrice());
+        entity.setTitle(ad.getTitle());
+        entity.setDescription(ad.getDescription());
 
-        //--------------------------------
-        // Need to fix on next week - Author should be set automatically
-        AdDto adDto = new AdDto();
-        adDto = ad;
-        ad.setAuthor(1);
-
-        //--------------------------------
         return mapper.toDto(
-                repository.save(
-                        mapper.toEntityFromDto(ad)
-                )
+                repository.save(entity)
         );
     }
 
@@ -71,7 +85,6 @@ public class AdServiceImpl implements AdService {
     }
 
     public AdDto update(Integer id, CreateOrUpdateAdDto ad) {
-
         return repository
                 .findById(id)
                 .map(oldAd -> {
@@ -86,6 +99,12 @@ public class AdServiceImpl implements AdService {
     @Override
     public void delete(Integer id) {
         repository.findById(id).orElseThrow(AdNotFoundException::new);
+
+        List<Comment> comments = commentRepository.findCommentsByAd_Pk(id);
+        comments.forEach(comment -> {
+            commentRepository.deleteById(comment.getPk());
+        });
+
         repository.deleteById(id);
     }
 

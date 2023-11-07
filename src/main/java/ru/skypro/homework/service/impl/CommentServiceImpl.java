@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
 import ru.skypro.homework.dto.CreateOrUpdateCommentDto;
+import ru.skypro.homework.entity.Ad;
 import ru.skypro.homework.entity.Comment;
 import ru.skypro.homework.entity.User;
 import ru.skypro.homework.mapper.CommentMapper;
@@ -15,6 +16,7 @@ import ru.skypro.homework.repository.CommentRepository;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.CommentService;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -74,7 +76,8 @@ public class CommentServiceImpl implements CommentService {
         comment.setText(commentText.getText());
         comment.setCreatedAt(System.currentTimeMillis());
         comment.setAuthor(getCurrentUser());
-        comment.setAd(adRepository.findById(adId).get());
+        Optional<Ad> foundAd = adRepository.findById(adId);
+        foundAd.ifPresent(comment::setAd);
 
         return commentMapper.toDto(commentRepository.save(comment));
     }
