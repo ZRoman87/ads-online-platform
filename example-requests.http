@@ -14,8 +14,8 @@ Content-Type: application/json
 
 {
   "price": 5000,
-  "title": "New title2",
-  "description": "New content2"
+  "title": "New title",
+  "description": "New content"
 }
 
 --WebAppBoundary
@@ -30,24 +30,25 @@ Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 ### Delete ad by id
-DELETE http://localhost:8080/ads/1
+DELETE http://localhost:8080/ads/8
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
 ### Update ad by id
-PATCH http://localhost:8080/ads/20
+PATCH http://localhost:8080/ads/2
 Content-Type: application/json
+Authorization: Basic user@gmail.com password
 
 {
-  "price": 3000,
-  "title": "New title updated",
-  "description": "New content updated"
+  "price": 30000,
+  "title": "New title updated111",
+  "description": "New content updated222"
 }
 
 ### Get all ads by autorized user
 GET http://localhost:8080/ads/me
 Content-Type: application/json
-Authorization: Basic user@gmail.com password
+Authorization: Basic carolunas@yandex.ru password
 
 ### Update an image for ad
 PATCH http://localhost:8080/ads/1/image
@@ -61,7 +62,7 @@ Content-Type: image/jpeg
 < mto.jpg
 
 ### Get comments for ad
-GET http://localhost:8080/ads/1/comments
+GET http://localhost:8080/ads/7/comments
 Content-Type: application/json
 Authorization: Basic user@gmail.com password
 
@@ -88,8 +89,8 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "username": "user@gmail.com",
-  "password": "password"
+  "username": "slavamarchkov@gmail.com",
+  "password": "slavamarchkov"
 }
 
 ### Register
@@ -97,12 +98,12 @@ POST http://localhost:8080/register
 Content-Type: application/json
 
 {
-  "username": "user@gmail.com",
-  "password": "password",
-  "firstName": "User",
-  "lastName": "Dummy",
-  "phone": "+7 (913) 213-55-55",
-  "role": "ADMIN"
+  "username": "user3@gmail.com",
+  "password": "user3@gmail.com",
+  "firstName": "User3",
+  "lastName": "Dummy3",
+  "phone": "+7 (913) 213-55-53",
+  "role": "USER"
 }
 
 ### Get details of an authenticated user

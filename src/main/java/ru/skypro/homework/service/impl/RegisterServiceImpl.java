@@ -1,8 +1,7 @@
 package ru.skypro.homework.service.impl;
 
-import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.RegisterDto;
 import ru.skypro.homework.entity.User;
@@ -12,25 +11,23 @@ import ru.skypro.homework.service.RegisterService;
 import java.util.regex.Pattern;
 
 @Service
-@NoArgsConstructor(force = true)
 public class RegisterServiceImpl implements RegisterService {
 
     private static final String PHONE_NUMBER_PATTERN = "\\+7\\s?\\(?\\d{3}\\)?\\s?\\d{3}-?\\d{2}-?\\d{2}";
-
-    private final UserDetailsManager manager;
     private final PasswordEncoder encoder;
-
     private final UserRepository userRepository;
 
-    public RegisterServiceImpl(final UserDetailsManager manager, final PasswordEncoder encoder, final UserRepository userRepository) {
-        this.manager = manager;
+    @Autowired
+    public RegisterServiceImpl(final PasswordEncoder encoder,
+                               final UserRepository userRepository) {
         this.encoder = encoder;
         this.userRepository = userRepository;
     }
 
     @Override
     public boolean registerUser(RegisterDto register) {
-        if (manager.userExists(register.getUsername()) || !validateRegister(register)) {
+        User foundUser = userRepository.findByEmail(register.getUsername());
+        if (foundUser != null || !validateRegister(register)) {
             return false;
         }
 

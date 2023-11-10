@@ -17,17 +17,15 @@ public class AuthServiceImpl implements AuthService {
         this.userDetailsService = userDetailsService;
         this.encoder = passwordEncoder;
     }
+
     @Override
     public boolean login(String userName, String password) {
-
         UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-
         if (userDetails.getUsername() == null) {
             return false;
         } else {
             return encoder.matches(password, userDetails.getPassword());
         }
-
     }
 
 }
