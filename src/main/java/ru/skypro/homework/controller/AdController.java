@@ -1,22 +1,26 @@
 package ru.skypro.homework.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
+import ru.skypro.homework.entity.User;
 import ru.skypro.homework.service.AdService;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(path = "/ads")
@@ -33,41 +37,75 @@ public class AdController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AdDto> addAd(@RequestPart(name = "properties") CreateOrUpdateAdDto ad,
-                                       @RequestPart(name = "image") MultipartFile file) {
-        AdDto addedAd = service.create(ad);
-        return ResponseEntity.ok(addedAd);
+                                       @RequestPart(name = "image") MultipartFile file,
+                                       @NonNull Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            AdDto addedAd = service.create(ad);
+            return ResponseEntity.ok(addedAd);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable(value = "id") Integer id) {
-        ExtendedAdDto ad = service.get(id);
-        if (ad == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable(value = "id") Integer id,
+                                                   @NonNull Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            ExtendedAdDto ad = service.get(id);
+            return (ad != null)
+                    ? ResponseEntity.ok(ad)
+                    : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        return ResponseEntity.ok(ad);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> deleteAdById(@PathVariable(value = "id") Integer id) {
-        try {
-            service.delete(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<Void> deleteAdById(@PathVariable(value = "id") Integer id,
+                                         @NonNull Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            AdDto foundAd = service.findAdById(id);
+            if (foundAd == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            } else {
+                if (adBelongsToCurrentUser(foundAd)) {
+                    service.delete(id);
+                    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+                } else {
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+                }
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @PatchMapping(path = "/{id}")
     public ResponseEntity<AdDto> updateAdById(@PathVariable(value = "id") Integer id,
-                                              @RequestBody CreateOrUpdateAdDto ad) {
-        AdDto updatedAd = service.update(id, ad);
-        return ResponseEntity.ok(updatedAd);
+                                              @RequestBody CreateOrUpdateAdDto ad,
+                                              @NonNull Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            AdDto foundAd = service.findAdById(id);
+            if (foundAd == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            } else {
+                if (adBelongsToCurrentUser(foundAd)) {
+                    AdDto updatedAd = service.update(id, ad);
+                    return ResponseEntity.ok(updatedAd);
+                } else {
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+                }
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping(path = "/me")
-    public ResponseEntity<AdsDto> getAuthorizedUserAds() {
-        Integer id = 1; //need to fix on next week - how to hand over Authorized User Id?
-        return ResponseEntity.ok(service.getAuthorizedUserAds(id));
+    public ResponseEntity<AdsDto> getAuthorizedUserAds(@NonNull Authentication authentication) {
+        return authentication.isAuthenticated()
+                ? ResponseEntity.ok(service.getAuthorizedUserAds())
+                : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PatchMapping(
@@ -78,6 +116,12 @@ public class AdController {
     public Resource updateImageByAdId(@PathVariable(value = "id") Integer id,
                                       @RequestPart(name = "image") MultipartFile file) throws IOException {
         return new ByteArrayResource(Files.readAllBytes(Paths.get("mto.jpg")));
+    }
+
+    private boolean adBelongsToCurrentUser(AdDto ad) {
+        User user = service.getCurrentUser();
+        Integer userId = user.getId();
+        return Objects.equals(userId, ad.getAuthor());
     }
 
 }

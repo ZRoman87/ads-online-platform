@@ -12,7 +12,6 @@ import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.entity.Ad;
 import ru.skypro.homework.entity.Comment;
 import ru.skypro.homework.entity.User;
-import ru.skypro.homework.exception.AdNotFoundException;
 import ru.skypro.homework.mapper.AdMapper;
 import ru.skypro.homework.repository.AdRepository;
 import ru.skypro.homework.repository.CommentRepository;
@@ -20,7 +19,6 @@ import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.AdService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +29,8 @@ public class AdServiceImpl implements AdService {
     private final CommentRepository commentRepository;
     private final AdMapper mapper;
 
-    private User getCurrentUser() {
+    @Override
+    public User getCurrentUser() {
         Authentication authenticationUser = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principalUser = (UserDetails) authenticationUser.getPrincipal();
         return userRepository.findByEmail(principalUser.getUsername());
@@ -55,7 +54,7 @@ public class AdServiceImpl implements AdService {
         return repository
                 .findById(id)
                 .map(mapper::toExtendedDto)
-                .orElseThrow(AdNotFoundException::new);
+                .orElse(null);
     }
 
     @Override
@@ -72,7 +71,9 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public AdsDto getAuthorizedUserAds(Integer id) {
+    public AdsDto getAuthorizedUserAds() {
+        User user = this.getCurrentUser();
+        Integer id = user.getId();
         return mapper.toAdsDto(
                 repository
                         .findByAuthorId(id)
@@ -84,6 +85,7 @@ public class AdServiceImpl implements AdService {
                         .collect(Collectors.toList()));
     }
 
+    @Override
     public AdDto update(Integer id, CreateOrUpdateAdDto ad) {
         return repository
                 .findById(id)
@@ -93,19 +95,24 @@ public class AdServiceImpl implements AdService {
                     oldAd.setDescription(ad.getDescription());
                     return mapper.toDto(repository.save(oldAd));
                 })
-                .orElseThrow(AdNotFoundException::new);
+                .orElse(null);
     }
 
     @Override
     public void delete(Integer id) {
-        repository.findById(id).orElseThrow(AdNotFoundException::new);
-
         List<Comment> comments = commentRepository.findCommentsByAd_Pk(id);
         comments.forEach(comment -> {
             commentRepository.deleteById(comment.getPk());
         });
-
         repository.deleteById(id);
+    }
+
+    @Override
+    public AdDto findAdById(Integer id) {
+        return repository
+                .findById(id)
+                .map(mapper::toDto)
+                .orElse(null);
     }
 
 }
