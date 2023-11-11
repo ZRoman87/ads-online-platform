@@ -17,7 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AdMapper {
 
-private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public ExtendedAdDto toExtendedDto(@NonNull Ad ad) {
         ExtendedAdDto adDto = new ExtendedAdDto();
@@ -46,6 +46,7 @@ private final UserRepository userRepository;
 
         return adDto;
     }
+
     public AdsDto toAdsDto(Integer count, @NonNull List<AdDto> results) {
         AdsDto adsDto = new AdsDto();
 
@@ -53,17 +54,6 @@ private final UserRepository userRepository;
         adsDto.setResults(results);
 
         return adsDto;
-    }
-
-    public Ad toEntityFromExtendedDto(ExtendedAdDto adDto) {
-        Ad ad = new Ad();
-
-        ad.setTitle(adDto.getTitle());
-        ad.setPrice(adDto.getPrice());
-        ad.setDescription(adDto.getDescription());
-        ad.setImage(adDto.getImage());
-
-        return ad;
     }
 
     public Ad toEntityFromDto(AdDto adDto) {

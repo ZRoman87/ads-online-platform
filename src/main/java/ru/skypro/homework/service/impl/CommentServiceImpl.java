@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
 import ru.skypro.homework.dto.CreateOrUpdateCommentDto;
@@ -66,7 +67,7 @@ public class CommentServiceImpl implements CommentService {
     /**
      * Метод, который добавляет комментарий к определенному объявлению
      *
-     * @param adId    (id объявления)
+     * @param adId        (id объявления)
      * @param commentText (текст комментария)
      * @return CommentDto (объект комментария)
      */
@@ -89,6 +90,7 @@ public class CommentServiceImpl implements CommentService {
      * @param commentId (id комментария)
      */
     @Override
+    @Transactional
     public void deleteComment(Integer adId, Integer commentId) {
         commentRepository.deleteCommentByAd_PkAndPk(adId, commentId);
     }
@@ -105,10 +107,21 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto updateComment(Integer adId,
                                     Integer commentId,
                                     CreateOrUpdateCommentDto comment) {
-        Comment entity = commentRepository.findCommentByAd_PkAndPk(adId, commentId);
-        entity.setText(comment.getText());
+        return commentRepository
+                .findCommentByAd_PkAndPk(adId, commentId)
+                .map(oldComment -> {
+                    oldComment.setText(comment.getText());
+                    return commentMapper.toDto(commentRepository.save(oldComment));
+                })
+                .orElse(null);
+    }
 
-        return commentMapper.toDto(commentRepository.save(entity));
+    @Override
+    public CommentDto findCommentByAdIdAndCommentId(final Integer adId, final Integer commentId) {
+        return commentRepository
+                .findCommentByAd_PkAndPk(adId, commentId)
+                .map(commentMapper::toDto)
+                .orElse(null);
     }
 
 }
