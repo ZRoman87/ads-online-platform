@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.skypro.homework.dto.AdDto;
-import ru.skypro.homework.dto.CommentDto;
-import ru.skypro.homework.dto.CommentsDto;
-import ru.skypro.homework.dto.CreateOrUpdateCommentDto;
+import ru.skypro.homework.dto.*;
 import ru.skypro.homework.entity.User;
 import ru.skypro.homework.service.AdService;
 import ru.skypro.homework.service.CommentService;
@@ -94,7 +91,7 @@ public class CommentController {
             if (foundAd == null || foundComment == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             } else {
-                if (commentBelongsToCurrentUser(foundComment)) {
+                if (commentBelongsToCurrentUserOrIsAdmin(foundComment)) {
                     commentService.deleteComment(adId, commentId);
                     return ResponseEntity.ok().build();
                 } else {
@@ -126,7 +123,7 @@ public class CommentController {
             if (foundAd == null || foundComment == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             } else {
-                if (commentBelongsToCurrentUser(foundComment)) {
+                if (commentBelongsToCurrentUserOrIsAdmin(foundComment)) {
                     CommentDto commentDto = commentService.updateComment(adId, commentId, comment);
                     return ResponseEntity.ok(commentDto);
                 } else {
@@ -138,10 +135,11 @@ public class CommentController {
         }
     }
 
-    private boolean commentBelongsToCurrentUser(CommentDto comment) {
+    private boolean commentBelongsToCurrentUserOrIsAdmin(CommentDto comment) {
         User user = adService.getCurrentUser();
+        boolean isAdmin = user.getRole().equals(Role.ADMIN);
         Integer userId = user.getId();
-        return Objects.equals(userId, comment.getAuthor());
+        return isAdmin || Objects.equals(userId, comment.getAuthor());
     }
 
 }

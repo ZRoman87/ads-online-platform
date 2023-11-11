@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.AdDto;
-import ru.skypro.homework.dto.AdsDto;
-import ru.skypro.homework.dto.CreateOrUpdateAdDto;
-import ru.skypro.homework.dto.ExtendedAdDto;
+import ru.skypro.homework.dto.*;
 import ru.skypro.homework.entity.User;
 import ru.skypro.homework.service.AdService;
 
@@ -62,13 +59,13 @@ public class AdController {
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteAdById(@PathVariable(value = "id") Integer id,
-                                         @NonNull Authentication authentication) {
+                                             @NonNull Authentication authentication) {
         if (authentication.isAuthenticated()) {
             AdDto foundAd = service.findAdById(id);
             if (foundAd == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             } else {
-                if (adBelongsToCurrentUser(foundAd)) {
+                if (adBelongsToCurrentUserOrIsAdmin(foundAd)) {
                     service.delete(id);
                     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
                 } else {
@@ -89,7 +86,7 @@ public class AdController {
             if (foundAd == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             } else {
-                if (adBelongsToCurrentUser(foundAd)) {
+                if (adBelongsToCurrentUserOrIsAdmin(foundAd)) {
                     AdDto updatedAd = service.update(id, ad);
                     return ResponseEntity.ok(updatedAd);
                 } else {
@@ -118,10 +115,11 @@ public class AdController {
         return new ByteArrayResource(Files.readAllBytes(Paths.get("mto.jpg")));
     }
 
-    private boolean adBelongsToCurrentUser(AdDto ad) {
+    private boolean adBelongsToCurrentUserOrIsAdmin(AdDto ad) {
         User user = service.getCurrentUser();
+        boolean isAdmin = user.getRole().equals(Role.ADMIN);
         Integer userId = user.getId();
-        return Objects.equals(userId, ad.getAuthor());
+        return isAdmin || Objects.equals(userId, ad.getAuthor());
     }
 
 }
