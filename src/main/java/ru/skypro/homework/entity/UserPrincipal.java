@@ -51,7 +51,4 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
-    public User getCurrentUser() {
-        return this.user;
-    }
 }

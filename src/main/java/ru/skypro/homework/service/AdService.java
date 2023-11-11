@@ -8,11 +8,18 @@ import ru.skypro.homework.entity.User;
 
 public interface AdService {
     User getCurrentUser();
+
     AdDto create(CreateOrUpdateAdDto ad);
+
     ExtendedAdDto get(Integer id);
+
     AdsDto getAll();
+
     AdsDto getAuthorizedUserAds();
+
     AdDto update(Integer id, CreateOrUpdateAdDto ad);
+
     void delete(Integer id);
+
     AdDto findAdById(Integer id);
 }
