@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOrUpdateAdDto;
@@ -18,6 +19,9 @@ import ru.skypro.homework.repository.CommentRepository;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.AdService;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -113,6 +117,24 @@ public class AdServiceImpl implements AdService {
                 .findById(id)
                 .map(mapper::toDto)
                 .orElse(null);
+    }
+
+    @Override
+    public String updateImage(final MultipartFile file) {
+        // TODO: code for ad image uploading
+        return null;
+    }
+
+    private void writeToFile(Path path, byte[] data) {
+        try (FileOutputStream fos = new FileOutputStream(path.toFile())) {
+            fos.write(data);
+        } catch (IOException e) {
+            // throw new UserAvatarProcessingException();
+        }
+    }
+
+    private String getExtensions(String fileName) {
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
 }
