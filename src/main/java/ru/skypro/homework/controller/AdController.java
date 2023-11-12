@@ -7,6 +7,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +34,7 @@ public class AdController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<AdDto> addAd(@RequestPart(name = "properties") CreateOrUpdateAdDto ad,
                                        @RequestPart(name = "image") MultipartFile file,
                                        @NonNull Authentication authentication) {
@@ -45,6 +47,7 @@ public class AdController {
     }
 
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable(value = "id") Integer id,
                                                    @NonNull Authentication authentication) {
         if (authentication.isAuthenticated()) {
@@ -58,6 +61,7 @@ public class AdController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Void> deleteAdById(@PathVariable(value = "id") Integer id,
                                              @NonNull Authentication authentication) {
         if (authentication.isAuthenticated()) {
@@ -78,6 +82,7 @@ public class AdController {
     }
 
     @PatchMapping(path = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<AdDto> updateAdById(@PathVariable(value = "id") Integer id,
                                               @RequestBody CreateOrUpdateAdDto ad,
                                               @NonNull Authentication authentication) {
@@ -99,6 +104,7 @@ public class AdController {
     }
 
     @GetMapping(path = "/me")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<AdsDto> getAuthorizedUserAds(@NonNull Authentication authentication) {
         return authentication.isAuthenticated()
                 ? ResponseEntity.ok(service.getAuthorizedUserAds())
@@ -110,9 +116,27 @@ public class AdController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
-    public Resource updateImageByAdId(@PathVariable(value = "id") Integer id,
-                                      @RequestPart(name = "image") MultipartFile file) throws IOException {
-        return new ByteArrayResource(Files.readAllBytes(Paths.get("mto.jpg")));
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public ResponseEntity<Resource> updateImageByAdId(@PathVariable(value = "id") Integer id,
+                                      @RequestPart(name = "image") MultipartFile file,
+                                      @NonNull Authentication authentication) throws IOException {
+        if (authentication.isAuthenticated()) {
+            AdDto foundAd = service.findAdById(id);
+            if (foundAd == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            } else {
+                if (adBelongsToCurrentUserOrIsAdmin(foundAd)) {
+                    String fileName = service.updateImage(file);
+                    return ResponseEntity.ok().body(
+                            new ByteArrayResource(Files.readAllBytes(Paths.get(fileName)))
+                    );
+                } else {
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+                }
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     private boolean adBelongsToCurrentUserOrIsAdmin(AdDto ad) {

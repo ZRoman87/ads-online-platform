@@ -5,7 +5,7 @@ Content-Type: application/json
 ### Create a new ad
 POST http://localhost:8080/ads
 Content-Type: multipart/form-data; boundary=WebAppBoundary
-Authorization: Basic user4@gmail.com user4@gmail.com
+Authorization: Basic carolunas@yandex.ru newPassword
 
 --WebAppBoundary
 Content-Disposition: form-data; name="properties"
@@ -118,22 +118,22 @@ Authorization: Basic carolunas@yandex.ru password
 ### Update details of an authenticated user
 PATCH http://localhost:8080/users/me
 Content-Type: application/json
-Authorization: Basic user2@gmail.com user2@gmail.com
+Authorization: Basic carolunas@yandex.ru newPassword
 
 {
   "phone": "+7 (913) 213-55-51",
-  "firstName": "Dennis22",
-  "lastName": "Carolunas22"
+  "firstName": "Dennis33",
+  "lastName": "Carolunas33"
 }
 
 ### Change password of an authenticated user
 POST http://localhost:8080/users/set_password
 Content-Type: application/json
-Authorization: Basic user2@gmail.com user2@gmail.com
+Authorization: Basic carolunas@yandex.ru password
 
 {
-  "newPassword": "password",
-  "currentPassword": "user2@gmail.com"
+  "newPassword": "newPassword",
+  "currentPassword": "password"
 }
 
 ### Update an avatar for an authenticated user
