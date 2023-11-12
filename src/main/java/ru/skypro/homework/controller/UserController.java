@@ -26,16 +26,18 @@ public class UserController {
     }
 
     @PostMapping("/set_password") // POST http://localhost:8080/users/set_password
-    public ResponseEntity<String> setPassword(@RequestBody NewPasswordDto newPasswordDto) {
-        UserDto user = service.getAuthenticatedUser();
-
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is unauthorized");
-        }
-        if (service.updatePassword(newPasswordDto)) {
-            return ResponseEntity.ok("Password was updated");
+    public ResponseEntity<String> setPassword(@RequestBody NewPasswordDto newPassword,
+                                              @NonNull Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            if (service.updatePassword(authentication.getName(),
+                    newPassword.getCurrentPassword(),
+                    newPassword.getNewPassword())) {
+                return ResponseEntity.ok("Password was updated");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Passwords do not match!");
+            }
         } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Passwords do not match!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is unauthorized");
         }
     }
 
