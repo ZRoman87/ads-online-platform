@@ -12,7 +12,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder encoder;
 
-    public AuthServiceImpl(UserDetailsServiceImpl userDetailsService,
+    public AuthServiceImpl(UserDetailsService userDetailsService,
                            PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.encoder = passwordEncoder;
@@ -21,11 +21,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean login(String userName, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-        if (userDetails.getUsername() == null) {
-            return false;
-        } else {
-            return encoder.matches(password, userDetails.getPassword());
-        }
+        return encoder.matches(password, userDetails.getPassword());
     }
 
 }

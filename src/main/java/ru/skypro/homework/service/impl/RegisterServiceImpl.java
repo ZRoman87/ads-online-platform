@@ -1,6 +1,5 @@
 package ru.skypro.homework.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.RegisterDto;
@@ -17,7 +16,6 @@ public class RegisterServiceImpl implements RegisterService {
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;
 
-    @Autowired
     public RegisterServiceImpl(final PasswordEncoder encoder,
                                final UserRepository userRepository) {
         this.encoder = encoder;

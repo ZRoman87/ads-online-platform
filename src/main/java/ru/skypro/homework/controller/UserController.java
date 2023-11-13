@@ -28,47 +28,31 @@ public class UserController {
     @PostMapping("/set_password") // POST http://localhost:8080/users/set_password
     public ResponseEntity<String> setPassword(@RequestBody NewPasswordDto newPassword,
                                               @NonNull Authentication authentication) {
-        if (authentication.isAuthenticated()) {
-            if (service.updatePassword(authentication.getName(),
-                    newPassword.getCurrentPassword(),
-                    newPassword.getNewPassword())) {
-                return ResponseEntity.ok("Password was updated");
-            } else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Passwords do not match!");
-            }
+        if (service.updatePassword(authentication.getName(),
+                newPassword.getCurrentPassword(),
+                newPassword.getNewPassword())) {
+            return ResponseEntity.ok("Password was updated");
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is unauthorized");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Passwords do not match!");
         }
     }
 
     @GetMapping("/me") // GET http://localhost:8080/users/me
-    public ResponseEntity<UserDto> getUser(@NonNull Authentication authentication) {
-        return authentication.isAuthenticated()
-                ? ResponseEntity.ok(service.getAuthenticatedUser())
-                : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity<UserDto> getUser() {
+        return ResponseEntity.ok(service.getAuthenticatedUser());
     }
 
     @PatchMapping("/me") // PATCH http://localhost:8080/users/me
-    public ResponseEntity<UpdateUserDto> updateUser(@RequestBody UpdateUserDto updateUserDto,
-                                                    @NonNull Authentication authentication) {
-        if (authentication.isAuthenticated()) {
-            UpdateUserDto updatedUser = service.updateUser(updateUserDto);
-            return ResponseEntity.ok(updatedUser);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    public ResponseEntity<UpdateUserDto> updateUser(@RequestBody UpdateUserDto updateUserDto) {
+        UpdateUserDto updatedUser = service.updateUser(updateUserDto);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @PatchMapping(value = "/me/image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // PATCH http://localhost:8080/users/me/image
-    public ResponseEntity<String> updateAvatar(@RequestParam MultipartFile image,
-                                               @NonNull Authentication authentication) throws IOException {
-        if (authentication.isAuthenticated()) {
-            service.updateAvatar(image);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    public ResponseEntity<String> updateAvatar(@RequestParam MultipartFile image) throws IOException {
+        service.updateAvatar(image);
+        return ResponseEntity.ok().build();
     }
 
 }

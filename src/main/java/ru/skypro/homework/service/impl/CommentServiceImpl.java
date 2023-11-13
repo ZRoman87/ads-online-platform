@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
 import ru.skypro.homework.dto.CreateOrUpdateCommentDto;
+import ru.skypro.homework.dto.Role;
 import ru.skypro.homework.entity.Ad;
 import ru.skypro.homework.entity.Comment;
 import ru.skypro.homework.entity.User;
@@ -17,6 +18,7 @@ import ru.skypro.homework.repository.CommentRepository;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.CommentService;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -91,8 +93,13 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     @Transactional
-    public void deleteComment(Integer adId, Integer commentId) {
-        commentRepository.deleteCommentByAd_PkAndPk(adId, commentId);
+    public boolean deleteComment(Integer adId, Integer commentId) {
+        CommentDto foundComment = findCommentByAdIdAndCommentId(adId, commentId);
+        if (commentBelongsToCurrentUserOrIsAdmin(foundComment)) {
+            commentRepository.deleteCommentByAd_PkAndPk(adId, commentId);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -107,13 +114,17 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto updateComment(Integer adId,
                                     Integer commentId,
                                     CreateOrUpdateCommentDto comment) {
-        return commentRepository
-                .findCommentByAd_PkAndPk(adId, commentId)
-                .map(oldComment -> {
-                    oldComment.setText(comment.getText());
-                    return commentMapper.toDto(commentRepository.save(oldComment));
-                })
-                .orElse(null);
+        CommentDto commentDto = findCommentByAdIdAndCommentId(adId, commentId);
+        if (commentBelongsToCurrentUserOrIsAdmin(commentDto)) {
+            return commentRepository
+                    .findCommentByAd_PkAndPk(adId, commentId)
+                    .map(oldComment -> {
+                        oldComment.setText(comment.getText());
+                        return commentMapper.toDto(commentRepository.save(oldComment));
+                    })
+                    .orElse(null);
+        }
+        return null;
     }
 
     @Override
@@ -122,6 +133,13 @@ public class CommentServiceImpl implements CommentService {
                 .findCommentByAd_PkAndPk(adId, commentId)
                 .map(commentMapper::toDto)
                 .orElse(null);
+    }
+
+    private boolean commentBelongsToCurrentUserOrIsAdmin(CommentDto commentDto) {
+        User user = getCurrentUser();
+        boolean isAdmin = user.getRole().equals(Role.ADMIN);
+        Integer userId = user.getId();
+        return isAdmin || Objects.equals(userId, commentDto.getAuthor());
     }
 
 }

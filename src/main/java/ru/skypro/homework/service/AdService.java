@@ -20,9 +20,9 @@ public interface AdService {
 
     AdDto update(Integer id, CreateOrUpdateAdDto ad);
 
-    void delete(Integer id);
+    boolean delete(AdDto adDto);
 
     AdDto findAdById(Integer id);
 
-    String updateImage(MultipartFile file);
+    String updateImage(Integer id, MultipartFile file);
 }

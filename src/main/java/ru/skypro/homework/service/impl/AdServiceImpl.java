@@ -6,10 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.AdDto;
-import ru.skypro.homework.dto.AdsDto;
-import ru.skypro.homework.dto.CreateOrUpdateAdDto;
-import ru.skypro.homework.dto.ExtendedAdDto;
+import ru.skypro.homework.dto.*;
 import ru.skypro.homework.entity.Ad;
 import ru.skypro.homework.entity.Comment;
 import ru.skypro.homework.entity.User;
@@ -23,12 +20,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class AdServiceImpl implements AdService {
-    private final AdRepository repository;
+    private final AdRepository adRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final AdMapper mapper;
@@ -49,13 +47,13 @@ public class AdServiceImpl implements AdService {
         entity.setDescription(ad.getDescription());
 
         return mapper.toDto(
-                repository.save(entity)
+                adRepository.save(entity)
         );
     }
 
     @Override
     public ExtendedAdDto get(Integer id) {
-        return repository
+        return adRepository
                 .findById(id)
                 .map(mapper::toExtendedDto)
                 .orElse(null);
@@ -64,10 +62,10 @@ public class AdServiceImpl implements AdService {
     @Override
     public AdsDto getAll() {
         return mapper.toAdsDto(
-                repository
+                adRepository
                         .findAll()
                         .size(),
-                repository
+                adRepository
                         .findAll()
                         .stream()
                         .map(mapper::toDto)
@@ -79,10 +77,10 @@ public class AdServiceImpl implements AdService {
         User user = this.getCurrentUser();
         Integer id = user.getId();
         return mapper.toAdsDto(
-                repository
+                adRepository
                         .findByAuthorId(id)
                         .size(),
-                repository
+                adRepository
                         .findByAuthorId(id)
                         .stream()
                         .map(mapper::toDto)
@@ -91,37 +89,48 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public AdDto update(Integer id, CreateOrUpdateAdDto ad) {
-        return repository
-                .findById(id)
-                .map(oldAd -> {
-                    oldAd.setPrice(ad.getPrice());
-                    oldAd.setTitle(ad.getTitle());
-                    oldAd.setDescription(ad.getDescription());
-                    return mapper.toDto(repository.save(oldAd));
-                })
-                .orElse(null);
+        AdDto adDto = findAdById(id);
+        if (adBelongsToCurrentUserOrIsAdmin(adDto)) {
+            return adRepository
+                    .findById(id)
+                    .map(oldAd -> {
+                        oldAd.setPrice(ad.getPrice());
+                        oldAd.setTitle(ad.getTitle());
+                        oldAd.setDescription(ad.getDescription());
+                        return mapper.toDto(adRepository.save(oldAd));
+                    })
+                    .orElse(null);
+        }
+        return null;
     }
 
     @Override
-    public void delete(Integer id) {
-        List<Comment> comments = commentRepository.findCommentsByAd_Pk(id);
-        comments.forEach(comment -> {
-            commentRepository.deleteById(comment.getPk());
-        });
-        repository.deleteById(id);
+    public boolean delete(AdDto adDto) {
+        if (adBelongsToCurrentUserOrIsAdmin(adDto)) {
+            List<Comment> comments = commentRepository.findCommentsByAd_Pk(adDto.getPk());
+            comments.forEach(comment -> {
+                commentRepository.deleteById(comment.getPk());
+            });
+            adRepository.deleteById(adDto.getPk());
+            return true;
+        }
+        return false;
     }
 
     @Override
     public AdDto findAdById(Integer id) {
-        return repository
+        return adRepository
                 .findById(id)
                 .map(mapper::toDto)
                 .orElse(null);
     }
 
     @Override
-    public String updateImage(final MultipartFile file) {
-        // TODO: code for ad image uploading
+    public String updateImage(final Integer id, final MultipartFile file) {
+        AdDto adDto = findAdById(id);
+        if (adBelongsToCurrentUserOrIsAdmin(adDto)) {
+            // TODO: code for ad image uploading
+        }
         return null;
     }
 
@@ -135,6 +144,13 @@ public class AdServiceImpl implements AdService {
 
     private String getExtensions(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
+
+    private boolean adBelongsToCurrentUserOrIsAdmin(AdDto adDto) {
+        User user = this.getCurrentUser();
+        boolean isAdmin = user.getRole().equals(Role.ADMIN);
+        Integer userId = user.getId();
+        return isAdmin || Objects.equals(userId, adDto.getAuthor());
     }
 
 }
