@@ -9,7 +9,6 @@ import java.util.Objects;
 @Entity
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
 @ToString
 @Table(name = "users")
 public class User {
@@ -32,6 +31,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String image;
+
+    public User() {
+
+    }
 
     @Override
     public boolean equals(final Object object) {

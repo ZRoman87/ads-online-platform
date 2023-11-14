@@ -4,9 +4,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
 import ru.skypro.homework.dto.CreateOrUpdateCommentDto;
+import ru.skypro.homework.dto.Role;
 import ru.skypro.homework.entity.Ad;
 import ru.skypro.homework.entity.Comment;
 import ru.skypro.homework.entity.User;
@@ -16,6 +18,7 @@ import ru.skypro.homework.repository.CommentRepository;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.CommentService;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -66,7 +69,7 @@ public class CommentServiceImpl implements CommentService {
     /**
      * Метод, который добавляет комментарий к определенному объявлению
      *
-     * @param adId    (id объявления)
+     * @param adId        (id объявления)
      * @param commentText (текст комментария)
      * @return CommentDto (объект комментария)
      */
@@ -89,8 +92,14 @@ public class CommentServiceImpl implements CommentService {
      * @param commentId (id комментария)
      */
     @Override
-    public void deleteComment(Integer adId, Integer commentId) {
-        commentRepository.deleteCommentByAd_PkAndPk(adId, commentId);
+    @Transactional
+    public boolean deleteComment(Integer adId, Integer commentId) {
+        CommentDto foundComment = findCommentByAdIdAndCommentId(adId, commentId);
+        if (commentBelongsToCurrentUserOrIsAdmin(foundComment)) {
+            commentRepository.deleteCommentByAd_PkAndPk(adId, commentId);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -105,10 +114,32 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto updateComment(Integer adId,
                                     Integer commentId,
                                     CreateOrUpdateCommentDto comment) {
-        Comment entity = commentRepository.findCommentByAd_PkAndPk(adId, commentId);
-        entity.setText(comment.getText());
+        CommentDto commentDto = findCommentByAdIdAndCommentId(adId, commentId);
+        if (commentBelongsToCurrentUserOrIsAdmin(commentDto)) {
+            return commentRepository
+                    .findCommentByAd_PkAndPk(adId, commentId)
+                    .map(oldComment -> {
+                        oldComment.setText(comment.getText());
+                        return commentMapper.toDto(commentRepository.save(oldComment));
+                    })
+                    .orElse(null);
+        }
+        return null;
+    }
 
-        return commentMapper.toDto(commentRepository.save(entity));
+    @Override
+    public CommentDto findCommentByAdIdAndCommentId(final Integer adId, final Integer commentId) {
+        return commentRepository
+                .findCommentByAd_PkAndPk(adId, commentId)
+                .map(commentMapper::toDto)
+                .orElse(null);
+    }
+
+    private boolean commentBelongsToCurrentUserOrIsAdmin(CommentDto commentDto) {
+        User user = getCurrentUser();
+        boolean isAdmin = user.getRole().equals(Role.ADMIN);
+        Integer userId = user.getId();
+        return isAdmin || Objects.equals(userId, commentDto.getAuthor());
     }
 
 }

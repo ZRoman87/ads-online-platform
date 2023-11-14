@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.NewPasswordDto;
 import ru.skypro.homework.dto.UpdateUserDto;
 import ru.skypro.homework.dto.UserDto;
 import ru.skypro.homework.entity.User;
@@ -51,30 +50,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updatePassword(final NewPasswordDto newPassword) {
-        String currentPassword = newPassword.getCurrentPassword();
-        String updatedPassword = newPassword.getNewPassword();
-        if (checkCurrentPassword(currentPassword)) {
-            setNewPassword(updatedPassword);
+    public boolean updatePassword(final String email, final String currentPassword, final String newPassword) {
+        if (checkCurrentPassword(email, currentPassword)) {
+            setNewPassword(email, newPassword);
             return true;
         }
         return false;
     }
 
-    private void setNewPassword(final String password) {
-        UserDto userDto = this.getAuthenticatedUser();
-        String newPassword = encoder.encode(password);
-        repository.findById(userDto.getId())
-                .map(user -> {
-                    user.setPassword(newPassword);
-                    return mapper.toDto(repository.save(user));
-                });
+    private void setNewPassword(final String email, final String password) {
+        String encodedPassword = encoder.encode(password);
+        User user = repository.findByEmail(email);
+        user.setPassword(encodedPassword);
+        repository.save(user);
     }
 
-    private boolean checkCurrentPassword(final String password) {
-        User user = new User();
-        String currentPassword = user.getPassword();
-        return encoder.matches(password, currentPassword);
+    private boolean checkCurrentPassword(final String email, final String password) {
+        User user = repository.findByEmail(email);
+        return encoder.matches(password, user.getPassword());
     }
 
     @Override

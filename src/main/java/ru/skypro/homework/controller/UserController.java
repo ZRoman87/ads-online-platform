@@ -1,8 +1,10 @@
 package ru.skypro.homework.controller;
 
+import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.NewPasswordDto;
@@ -24,13 +26,11 @@ public class UserController {
     }
 
     @PostMapping("/set_password") // POST http://localhost:8080/users/set_password
-    public ResponseEntity<String> setPassword(@RequestBody NewPasswordDto newPasswordDto) {
-        UserDto user = service.getAuthenticatedUser();
-
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is unauthorized");
-        }
-        if (service.updatePassword(newPasswordDto)) {
+    public ResponseEntity<String> setPassword(@RequestBody NewPasswordDto newPassword,
+                                              @NonNull Authentication authentication) {
+        if (service.updatePassword(authentication.getName(),
+                newPassword.getCurrentPassword(),
+                newPassword.getNewPassword())) {
             return ResponseEntity.ok("Password was updated");
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Passwords do not match!");
@@ -39,30 +39,18 @@ public class UserController {
 
     @GetMapping("/me") // GET http://localhost:8080/users/me
     public ResponseEntity<UserDto> getUser() {
-        UserDto user = service.getAuthenticatedUser();
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(service.getAuthenticatedUser());
     }
 
     @PatchMapping("/me") // PATCH http://localhost:8080/users/me
     public ResponseEntity<UpdateUserDto> updateUser(@RequestBody UpdateUserDto updateUserDto) {
-        UserDto user = service.getAuthenticatedUser();
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
         UpdateUserDto updatedUser = service.updateUser(updateUserDto);
         return ResponseEntity.ok(updatedUser);
     }
 
-    @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    // PATCH http://localhost:8080/users/me/image
+    @PatchMapping(value = "/me/image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // PATCH http://localhost:8080/users/me/image
     public ResponseEntity<String> updateAvatar(@RequestParam MultipartFile image) throws IOException {
-        UserDto user = service.getAuthenticatedUser();
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
         service.updateAvatar(image);
         return ResponseEntity.ok().build();
     }

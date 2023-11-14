@@ -41,33 +41,38 @@ public class AdController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable(value = "id") Integer id) {
         ExtendedAdDto ad = service.get(id);
-        if (ad == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.ok(ad);
+        return (ad != null)
+                ? ResponseEntity.ok(ad)
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteAdById(@PathVariable(value = "id") Integer id) {
-        try {
-            service.delete(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        AdDto ad = service.findAdById(id);
+        return (ad == null)
+                ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+                : service.delete(ad)
+                ? ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+                : ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PatchMapping(path = "/{id}")
     public ResponseEntity<AdDto> updateAdById(@PathVariable(value = "id") Integer id,
                                               @RequestBody CreateOrUpdateAdDto ad) {
-        AdDto updatedAd = service.update(id, ad);
-        return ResponseEntity.ok(updatedAd);
+        AdDto adDto = service.findAdById(id);
+        if (adDto == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            AdDto updatedAd = service.update(id, ad);
+            return (updatedAd != null)
+                    ? ResponseEntity.ok(updatedAd)
+                    : ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @GetMapping(path = "/me")
     public ResponseEntity<AdsDto> getAuthorizedUserAds() {
-        Integer id = 1; //need to fix on next week - how to hand over Authorized User Id?
-        return ResponseEntity.ok(service.getAuthorizedUserAds(id));
+        return ResponseEntity.ok(service.getAuthorizedUserAds());
     }
 
     @PatchMapping(
@@ -75,9 +80,17 @@ public class AdController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
-    public Resource updateImageByAdId(@PathVariable(value = "id") Integer id,
-                                      @RequestPart(name = "image") MultipartFile file) throws IOException {
-        return new ByteArrayResource(Files.readAllBytes(Paths.get("mto.jpg")));
+    public ResponseEntity<Resource> updateImageByAdId(@PathVariable(value = "id") Integer id,
+                                                      @RequestPart(name = "image") MultipartFile file) throws IOException {
+        AdDto adDto = service.findAdById(id);
+        if (adDto == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            String fileName = service.updateImage(id, file);
+            return (fileName != null)
+                    ? ResponseEntity.ok().body(new ByteArrayResource(Files.readAllBytes(Paths.get(fileName))))
+                    : ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
 }
