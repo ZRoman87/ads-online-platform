@@ -3,6 +3,7 @@ package ru.skypro.homework.mapper;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import ru.skypro.homework.dto.UserDto;
+import ru.skypro.homework.dto.UserPrincipalDto;
 import ru.skypro.homework.entity.User;
 
 @Component
@@ -12,11 +13,23 @@ public class UserMapper {
         UserDto userDto = new UserDto();
 
         userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
-        userDto.setEmail(userDto.getEmail());
-        userDto.setPhone(userDto.getPhone());
-        userDto.setRole(userDto.getRole());
+        userDto.setPhone(user.getPhone());
+        userDto.setRole(user.getRole());
+        userDto.setImage(user.getImage());
+
+        return userDto;
+    }
+
+    public UserPrincipalDto toUserPrincipalDto(@NonNull User user) {
+        UserPrincipalDto userDto = new UserPrincipalDto();
+
+        userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        userDto.setRole(user.getRole());
 
         return userDto;
     }

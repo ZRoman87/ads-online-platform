@@ -9,7 +9,6 @@ import java.util.Objects;
 @Entity
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
 @ToString
 @Table(name = "users")
 public class User {
@@ -28,14 +27,13 @@ public class User {
     private String lastName;
     @NonNull
     private String phone;
-    @Getter
     @NonNull
     @Enumerated(EnumType.STRING)
     private Role role;
     private String image;
 
-    public void setRole(final @NonNull Role role) {
-        this.role = role;
+    public User() {
+
     }
 
     @Override

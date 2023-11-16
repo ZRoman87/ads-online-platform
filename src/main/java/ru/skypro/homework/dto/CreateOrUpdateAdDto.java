@@ -3,7 +3,7 @@ package ru.skypro.homework.dto;
 import lombok.Data;
 
 @Data
-public class CreateAdDto {
+public class CreateOrUpdateAdDto {
 
     private Integer price;
     private String title;
